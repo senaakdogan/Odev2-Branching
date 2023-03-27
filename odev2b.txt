@@ -1,0 +1,24 @@
+ void Update()
+    {
+        charPose = new Vector3(charPose.x + (Input.GetAxis("Horizontal") * speed * Time.deltaTime), charPose.y);
+        transform.position = charPose; //hesaplanan pozisyonu karaktere işlemek / fizik elemanı kullanmadan pozisyon degisikliği
+        if (Input.GetAxis("Horizontal") == 0.0f)
+        {
+            _animator.SetFloat("speed", 0.0f);
+        }
+        else
+        {
+            _animator.SetFloat("speed", 1.0f);
+        }
+        if (Input.GetAxis("Horizontal") > 0.01f)
+        {
+            _spriteRenderer.flipX = false;
+        } else if (Input.GetAxis("Horizontal") < -0.01f)
+        {
+            _spriteRenderer.flipX = true;
+        }
+        
+        sayi = 3;
+        Debug.Log("Update" + sayi);
+
+    }
