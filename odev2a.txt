@@ -1,0 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class characterController : MonoBehaviour
+{
+    public float speed = 1.0f;
+    private Rigidbody2D r2d;
+    private Animator _animator;
+    private Vector3 charPose;
+    private SpriteRenderer _spriteRenderer;
+    [SerializeField] private GameObject _camera;
+    private int sayi;
+
+    void Start()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        r2d = GetComponent<Rigidbody2D>(); //caching
+        _animator = GetComponent<Animator>();
+        charPose = transform.position;
+        sayi = 1;
+    }
