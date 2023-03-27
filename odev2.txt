@@ -1,0 +1,61 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class characterController : MonoBehaviour
+{
+    public float speed = 1.0f;
+    private Rigidbody2D r2d;
+    private Animator _animator;
+    private Vector3 charPose;
+    private SpriteRenderer _spriteRenderer;
+    [SerializeField] private GameObject _camera;
+    private int sayi;
+
+    void Start()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        r2d = GetComponent<Rigidbody2D>(); //caching
+        _animator = GetComponent<Animator>();
+        charPose = transform.position;
+        sayi = 1;
+    }
+
+
+    private void FixedUpdate() //fizik hesaplamaları fixedupdate da yapılmalı
+    {
+        //r2d.velocity = new Vector2(speed, 0f); 
+        sayi = 2;
+    }
+
+    void Update()
+    {
+        charPose = new Vector3(charPose.x + (Input.GetAxis("Horizontal") * speed * Time.deltaTime), charPose.y);
+        transform.position = charPose; //hesaplanan pozisyonu karaktere işlemek / fizik elemanı kullanmadan pozisyon degisikliği
+        if (Input.GetAxis("Horizontal") == 0.0f)
+        {
+            _animator.SetFloat("speed", 0.0f);
+        }
+        else
+        {
+            _animator.SetFloat("speed", 1.0f);
+        }
+        if (Input.GetAxis("Horizontal") > 0.01f)
+        {
+            _spriteRenderer.flipX = false;
+        } else if (Input.GetAxis("Horizontal") < -0.01f)
+        {
+            _spriteRenderer.flipX = true;
+        }
+        
+        sayi = 3;
+        Debug.Log("Update" + sayi);
+
+    }
+
+    private void LateUpdate()
+    {
+        //_camera.transform.position = new Vector3(charPose.x, charPose.y, charPose.z - 1.0f);
+        sayi = 4;
+    }
+}
